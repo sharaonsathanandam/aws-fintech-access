@@ -71,7 +71,7 @@ pipeline {
                           sh "/usr/local/bin/terraform workspace delete ws || true"
                           }
                           sh '/usr/local/bin/terraform init -reconfigure'
-                          sh '/usr/local/bin/terraform plan -refresh=false'
+                          sh '/usr/local/bin/terraform plan -refresh=false -out=tfplan'
                           input message: "Apply changes for ${yamlFile}?", ok: "Apply Now"
                           sh '/usr/local/bin/terraform apply -auto-approve tfplan'
                         }
