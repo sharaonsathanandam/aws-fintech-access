@@ -67,7 +67,7 @@ pipeline {
                         sh '/usr/local/bin/terraform workspace list'
                         sh "/usr/local/bin/terraform workspace select default || true"
                         try{
-                            sh "/usr/local/bin/terraform workspace delete ws --force"
+                            sh "/usr/local/bin/terraform workspace delete -force ws"
                           }
                         catch (Exception e) {
                           sh '/usr/local/bin/terraform workspace new ws'
