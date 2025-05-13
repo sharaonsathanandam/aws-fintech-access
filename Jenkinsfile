@@ -68,7 +68,7 @@ pipeline {
                           sh '/usr/local/bin/terraform workspace new ws'
                           sh '/usr/local/bin/terraform plan -refresh=false'
                           input message: "Apply changes for ${yamlFile}?", ok: "Apply Now"
-                          sh '/usr/local/bin/terraform apply -refresh=false'
+                          sh '/usr/local/bin/terraform apply -refresh=false -auto-approve tfplan'
                         }
                     }
                 }
