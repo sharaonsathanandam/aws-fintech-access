@@ -33,7 +33,7 @@ with open("pipeline-config/terraform.tfvars.json", "w") as f:
 
 # Run terraform destroy
 print("Revoking access via terraform destroy")
-os.chdir("terraform")
+os.chdir("pipeline-config")
 subprocess.run(["/usr/local/bin/terraform", "init", "-reconfigure"])
 subprocess.run(["/usr/local/bin/terraform", "plan", "-destroy", "-out=tfplan"])
 subprocess.run(["/usr/local/bin/terraform", "apply", "-auto-approve", "tfplan"])
