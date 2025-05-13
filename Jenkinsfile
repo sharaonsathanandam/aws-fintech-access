@@ -31,6 +31,7 @@ pipeline {
 
                     echo "Changed YAML files: ${changedYamls}"
                     echo "New YAML files: ${newYamls}"
+                    echo "Deleted YAML files: ${delYamls}"
 
                     // Step 3: Combine and deduplicate
                     allYamls = (changedYamls + newYamls).unique()
@@ -80,7 +81,7 @@ pipeline {
                 }
             }
         }
-    }
+//     }
 
         stage('Revoke Deleted Access') {
           when {
@@ -96,3 +97,4 @@ pipeline {
       }
     }
  }
+}
