@@ -84,9 +84,6 @@ pipeline {
 //     }
 
         stage('Revoke Deleted Access') {
-          when {
-            expression { delYamls?.trim() }
-          }
           steps {
             script {
               for (yamlFile in delYamls) {
