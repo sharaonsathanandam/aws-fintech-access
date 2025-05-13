@@ -79,10 +79,9 @@ pipeline {
     always {
       script {
         try {
-          def workspace = sh(script: '/usr/local/bin/terraform workspace show', returnStdout: true).trim()
-          sh "/usr/local/bin/terraform destroy -auto-approve || true"
-          sh "/usr/local/bin/terraform workspace select default || true"
-          sh "/usr/local/bin/terraform workspace delete ${workspace} || true"
+//           def workspace = sh(script: '/usr/local/bin/terraform workspace show', returnStdout: true).trim()
+//           sh "/usr/local/bin/terraform workspace select ws || true"
+          sh "/usr/local/bin/terraform workspace delete ws || true"
         } catch (Exception e) {
           echo "Failed to destroy workspace: ${e.getMessage()}"
         }
