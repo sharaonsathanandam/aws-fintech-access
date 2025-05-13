@@ -13,6 +13,7 @@ except subprocess.CalledProcessError:
     sys.exit(0)
 
 data = yaml.safe_load(content)
+data["is_access_request"] = False
 
 if not data.get("is_access_request", False):
     print(f"Skipping: {yaml_path} was not an access request file.")

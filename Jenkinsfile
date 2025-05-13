@@ -88,6 +88,7 @@ pipeline {
                 echo "Revoking access from deleted file: ${yamlFile}"
                 sh "python3 scripts/revoke_access.py ${yamlFile}"
                 def tfvarsFile = "pipeline-config/terraform.tfvars.json"
+                sh "cat ${tfvarsFile}"
                 dir('pipeline-config') {
                   sh '/usr/local/bin/terraform init -reconfigure'
                   sh '/usr/local/bin/terraform plan -refresh=false -out=tfplan'
