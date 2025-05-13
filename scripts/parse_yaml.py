@@ -17,3 +17,7 @@ out_path = "pipeline-config/terraform.tfvars.json"
 
 with open(out_path, "w") as out:
     json.dump(data, out, indent=2)
+
+print("Final tfvars file content:")
+with open("terraform/terraform.tfvars.json") as f:
+    print(f.read())
