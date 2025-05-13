@@ -73,7 +73,7 @@ pipeline {
 
                         dir('pipeline-config') {
                           sh '/usr/local/bin/terraform init -reconfigure'
-                          sh '/usr/local/bin/terraform plan -refresh=false -out=tfplan'
+                          sh '/usr/local/bin/terraform plan -out=tfplan'
                           input message: "Apply changes for ${yamlFile}?", ok: "Apply Now"
                           sh '/usr/local/bin/terraform apply -auto-approve tfplan'
                         }
@@ -91,7 +91,7 @@ pipeline {
                 sh "cat ${tfvarsFile}"
                 dir('pipeline-config') {
                   sh '/usr/local/bin/terraform init -reconfigure'
-                  sh '/usr/local/bin/terraform plan -refresh=false -out=tfplan'
+                  sh '/usr/local/bin/terraform plan -out=tfplan'
                   input message: "Apply changes for ${yamlFile}?", ok: "Apply Now"
                   sh '/usr/local/bin/terraform apply -auto-approve tfplan'
                 }
