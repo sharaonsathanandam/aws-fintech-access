@@ -81,14 +81,19 @@ pipeline {
                 }
             }
         }
-//     }
-
         stage('Revoke Deleted Access') {
           steps {
             script {
               for (yamlFile in delYamls) {
                 echo "Revoking access from deleted file: ${yamlFile}"
                 sh "python3 scripts/revoke_access.py ${yamlFile}"
+                def tfvarsFile = "pipeline-config/terraform.tfvars.json"
+                dir('pipeline-config') {
+                  sh '/usr/local/bin/terraform init -reconfigure'
+                  sh '/usr/local/bin/terraform plan -refresh=false -out=tfplan'
+                  input message: "Apply changes for ${yamlFile}?", ok: "Apply Now"
+                  sh '/usr/local/bin/terraform apply -auto-approve tfplan'
+                }
            }
         }
       }
