@@ -29,5 +29,5 @@ output "flag" {
 }
 
 output "cnt" {
-  value = count
+  value = aws_s3_bucket_policy.read_only_policy.count
 }
