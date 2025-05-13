@@ -1,4 +1,5 @@
 def allYamls = []
+def delYamls = []
 pipeline {
     agent any
 
@@ -19,12 +20,14 @@ pipeline {
             steps {
                 script {
                     // Step 1: Get recently changed and added files
-                    def changedFiles = sh(script: 'git diff --name-only HEAD~1 HEAD', returnStdout: true).trim().split('\n')
+                    def changedFiles = sh(script: 'git diff --name-only --diff-filter=M HEAD~1 HEAD', returnStdout: true).trim().split('\n')
                     def newFiles = sh(script: 'git diff --name-only --diff-filter=A HEAD~1 HEAD', returnStdout: true).trim().split('\n')
+                    def deletedFiles = sh(script: 'git diff --name-only --diff-filter=D HEAD~1 HEAD', returnStdout: true).trim().split('\n')
 
                     // Step 2: Filter YAML files from each list
                     def changedYamls = changedFiles.findAll { it.endsWith(".yaml") }
                     def newYamls = newFiles.findAll { it.endsWith(".yaml") }
+                    delYamls = deletedFiles.findAll { it.endsWith(".yaml") }
 
                     echo "Changed YAML files: ${changedYamls}"
                     echo "New YAML files: ${newYamls}"
@@ -55,6 +58,10 @@ pipeline {
                 script{
                     echo "All changed files inside next stage: ${allYamls}"
                     for (yamlFile in allYamls) {
+                        if (!fileExists(yamlFile)) {
+                            echo "Skipping ${yamlFile} — it was deleted in this commit."
+                            continue
+                          }
                         def commitHash = sh(script: "git log -n 1 --pretty=format:%H -- ${yamlFile}", returnStdout: true).trim()
                         echo "Processing ${yamlFile} (commit ${commitHash})"
                         sh "python3 -m pip install -r scripts/requirements.txt"
@@ -64,14 +71,6 @@ pipeline {
 //                         sh "jq '. + {git_commit_hash: \"${commitHash}\"}' ${tfvarsFile} > tmp && mv tmp ${tfvarsFile}"
 
                         dir('pipeline-config') {
-                        sh '/usr/local/bin/terraform workspace list'
-                        sh "/usr/local/bin/terraform workspace select default || true"
-                        try{
-                            sh "/usr/local/bin/terraform workspace delete -force ws"
-                          }
-                        catch (Exception e) {
-                          sh '/usr/local/bin/terraform workspace new ws'
-                          }
                           sh '/usr/local/bin/terraform init -reconfigure'
                           sh '/usr/local/bin/terraform plan -refresh=false -out=tfplan'
                           input message: "Apply changes for ${yamlFile}?", ok: "Apply Now"
@@ -80,20 +79,20 @@ pipeline {
                     }
                 }
             }
-          }
         }
-  post {
-    always {
-      script {
-        sh '/usr/local/bin/terraform workspace list'
-        try {
-          def workspace = sh(script: '/usr/local/bin/terraform workspace show', returnStdout: true).trim()
-//           sh "/usr/local/bin/terraform workspace select ws || true"
-          sh "/usr/local/bin/terraform workspace delete ws || true"
-        } catch (Exception e) {
-          echo "Failed to destroy workspace: ${e.getMessage()}"
+    }
+
+        stage('Revoke Deleted Access') {
+          when {
+            expression { delYamls?.trim() }
+          }
+          steps {
+            script {
+              for (yamlFile in delYamls) {
+                echo "Revoking access from deleted file: ${yamlFile}"
+                sh "python3 scripts/revoke_access.py ${yamlFile}"
+           }
         }
       }
     }
-  }
  }
