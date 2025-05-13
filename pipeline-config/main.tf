@@ -23,11 +23,3 @@ resource "aws_s3_bucket_policy" "read_only_policy" {
     ]
   })
 }
-
-output "flag" {
-  value = var.is_access_request
-}
-
-output "cnt" {
-  value = aws_s3_bucket_policy.read_only_policy.count
-}
