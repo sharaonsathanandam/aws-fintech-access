@@ -66,7 +66,7 @@ pipeline {
                         dir('pipeline-config') {
                         sh "/usr/local/bin/terraform workspace select default || true"
                         try{
-                            sh "/usr/local/bin/terraform workspace delete ws || true"
+                            sh "/usr/local/bin/terraform workspace delete ws -force"
                           }
                         catch (Exception e) {
                           sh '/usr/local/bin/terraform workspace new ws'
