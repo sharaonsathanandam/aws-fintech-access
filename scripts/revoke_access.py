@@ -28,9 +28,9 @@ data["is_access_request"] = False
 with open("pipeline-config/terraform.tfvars.json", "w") as f:
     json.dump(data, f, indent=2)
 
-with open(out_path, "w") as out:
+with open("pipeline-config/terraform.tfvars.json", "w") as out:
     json.dump(data, out, indent=2)
 
 print("Final tfvars file content:")
-with open(out_path) as f:
+with open("pipeline-config/terraform.tfvars.json") as f:
     print(f.read())
