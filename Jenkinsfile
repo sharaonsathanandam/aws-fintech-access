@@ -65,10 +65,10 @@ pipeline {
 
                         dir('pipeline-config') {
                         try{
-                          sh '/usr/local/bin/terraform workspace new ws'
+                            sh "/usr/local/bin/terraform workspace delete ws || true"
                           }
                         catch (Exception e) {
-                          sh "/usr/local/bin/terraform workspace delete ws || true"
+                          sh '/usr/local/bin/terraform workspace new ws'
                           }
                           sh '/usr/local/bin/terraform init -reconfigure'
                           sh '/usr/local/bin/terraform plan -refresh=false -out=tfplan'
