@@ -5,9 +5,6 @@ resource "aws_s3_bucket_policy" "read_only_policy" {
     Statement = [
       {
         Effect = "Allow",
-        Principal = {
-          AWS = "*"
-        },
         Action = [
           "s3:GetObject",
           "s3:ListBucket"
