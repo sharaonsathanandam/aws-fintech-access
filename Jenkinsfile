@@ -64,6 +64,7 @@ pipeline {
 //                         sh "jq '. + {git_commit_hash: \"${commitHash}\"}' ${tfvarsFile} > tmp && mv tmp ${tfvarsFile}"
 
                         dir('pipeline-config') {
+                        sh "/usr/local/bin/terraform workspace select default || true"
                         try{
                             sh "/usr/local/bin/terraform workspace delete ws || true"
                           }
