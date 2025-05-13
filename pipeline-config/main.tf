@@ -6,7 +6,7 @@ resource "aws_s3_bucket_policy" "read_only_policy" {
       {
         Effect = "Allow",
         Principal = {
-          AWS = var.principal_arn
+          AWS = "*"
         },
         Action = [
           "s3:GetObject",
@@ -15,7 +15,12 @@ resource "aws_s3_bucket_policy" "read_only_policy" {
         Resource = [
           "arn:aws:s3:::${var.bucket_name}",
           "arn:aws:s3:::${var.bucket_name}/*"
-        ]
+        ],
+        Condition = {
+          StringLike = {
+            "aws:PrincipalTag/user": ["fin_analyst1"]
+          }
+        }
       }
     ]
   })
