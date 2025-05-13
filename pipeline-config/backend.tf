@@ -1,9 +1,9 @@
 terraform {
   backend "s3" {
-    bucket         = "fintech-s3-tfstate-bucket"
+    bucket         = "fintech-access-tfstate-bucket"
     key            = "env/dev/terraform.tfstate"
     region         = "us-east-2"
     encrypt        = true
-    dynamodb_table = "s3-terraform-locks"
+    dynamodb_table = "access-terraform-locks"
   }
 }
