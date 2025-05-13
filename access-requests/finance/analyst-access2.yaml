@@ -1,5 +1,5 @@
 user_id: fin_analyst1
-bucket_name: fintech-data-lake-1
+bucket_name: fintech-data-lake-2
 team_name: Financial Analyst
 environment: Dev
 principal_arn: AWSReservedSSO_FinanceAnalysts_b67570c300321d27
