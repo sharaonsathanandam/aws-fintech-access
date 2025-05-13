@@ -1,6 +1,6 @@
 resource "aws_s3_bucket_policy" "read_only_policy" {
-  count = var.is_access_request ? 1 : 0
-  bucket = var.bucket_name[count.index].name
+  count  = var.is_access_request ? length(var.bucket_name) : 0
+  bucket = var.bucket_name[count.index]
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [

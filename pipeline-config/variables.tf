@@ -1,6 +1,6 @@
 variable "bucket_name" {
   description = "Base name for the bucket"
-  type        = string
+  type        = list(string)
 }
 
 variable "force_destroy" {
