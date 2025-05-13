@@ -20,5 +20,3 @@ resource "aws_s3_bucket_policy" "read_only_policy" {
     ]
   })
 }
-
-AWSReservedSSO_TreasuryOps_c96dc0d2a167af60
