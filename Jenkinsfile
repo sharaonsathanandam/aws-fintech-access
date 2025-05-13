@@ -64,8 +64,8 @@ pipeline {
 //                         sh "jq '. + {git_commit_hash: \"${commitHash}\"}' ${tfvarsFile} > tmp && mv tmp ${tfvarsFile}"
 
                         dir('pipeline-config') {
-                          sh "cat terraform.tfvars.json"
                           sh '/usr/local/bin/terraform init -reconfigure'
+                          sh '/usr/local/bin/terraform workspace new ws'
                           sh '/usr/local/bin/terraform plan -refresh=false'
                           input message: "Apply changes for ${yamlFile}?", ok: "Apply Now"
                           sh '/usr/local/bin/terraform apply -refresh=false'
