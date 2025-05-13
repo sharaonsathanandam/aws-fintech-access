@@ -5,6 +5,9 @@ resource "aws_s3_bucket_policy" "read_only_policy" {
     Statement = [
       {
         Effect = "Allow",
+        Principal = {
+          AWS = "arn:aws:iam::632234552152:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_FinanceAnalysts_b67570c300321d27"
+        }
         Action = [
           "s3:GetObject",
           "s3:ListBucket"
@@ -12,12 +15,7 @@ resource "aws_s3_bucket_policy" "read_only_policy" {
         Resource = [
           "arn:aws:s3:::${var.bucket_name}",
           "arn:aws:s3:::${var.bucket_name}/*"
-        ],
-        Condition = {
-          StringLike = {
-            "aws:PrincipalTag/user": ["fin_analyst1"]
-          }
-        }
+        ]
       }
     ]
   })
