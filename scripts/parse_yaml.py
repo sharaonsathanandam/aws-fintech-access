@@ -14,3 +14,6 @@ account_id = subprocess.check_output([
 # data["principal_arn"] = f"arn:aws:iam::{account_id}:role/AWSReservedSSO_FinanceAnalysts_b67570c300321d27"
 
 out_path = "pipeline-config/terraform.tfvars.json"
+
+with open(out_path, "w") as out:
+    json.dump(data, out, indent=2)
