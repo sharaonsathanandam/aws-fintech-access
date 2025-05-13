@@ -84,6 +84,7 @@ pipeline {
   post {
     always {
       script {
+        sh '/usr/local/bin/terraform workspace list'
         try {
           def workspace = sh(script: '/usr/local/bin/terraform workspace show', returnStdout: true).trim()
 //           sh "/usr/local/bin/terraform workspace select ws || true"
