@@ -28,7 +28,7 @@ account_id = subprocess.check_output([
 ]).decode("utf-8").strip()
 # data["principal_arn"] = f"arn:aws:iam::{account_id}:role/AWSReservedSSO_FinanceAnalysts_b67570c300321d27"
 
-with open("terraform/terraform.tfvars.json", "w") as f:
+with open("pipeline-config/terraform.tfvars.json", "w") as f:
     json.dump(data, f, indent=2)
 
 # Run terraform destroy
