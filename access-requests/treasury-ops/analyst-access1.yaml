@@ -3,5 +3,5 @@ bucket_name: fintech-data-lake-2
 team_name: Financial Analyst
 environment: Dev
 principal_arn: AWSReservedSSO_TreasuryOps_c96dc0d2a167af60
-data_classification : "treasury_ops"
+data_classification : "treas_ops"
 is_access_request: true
