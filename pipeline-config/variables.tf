@@ -68,7 +68,7 @@ variable "principal_arn" {
 
 variable "is_access_request" {
   type = bool
-  default = false
+  default = true
 }
 
 variable "user_id" {
