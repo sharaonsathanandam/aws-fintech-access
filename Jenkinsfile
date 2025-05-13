@@ -75,4 +75,18 @@ pipeline {
             }
           }
         }
+  post {
+    always {
+      script {
+        try {
+          def workspace = sh(script: 'terraform workspace show', returnStdout: true).trim()
+          sh "terraform destroy -auto-approve || true"
+          sh "terraform workspace select default || true"
+          sh "terraform workspace delete ${workspace} || true"
+        } catch (Exception e) {
+          echo "Failed to destroy workspace: ${e.getMessage()}"
+        }
+      }
     }
+  }
+ }
