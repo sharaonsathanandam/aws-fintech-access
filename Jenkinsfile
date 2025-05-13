@@ -64,11 +64,16 @@ pipeline {
 //                         sh "jq '. + {git_commit_hash: \"${commitHash}\"}' ${tfvarsFile} > tmp && mv tmp ${tfvarsFile}"
 
                         dir('pipeline-config') {
-                          sh '/usr/local/bin/terraform init -reconfigure'
+                        try{
                           sh '/usr/local/bin/terraform workspace new ws'
+                          }
+                        catch (Exception e) {
+                          sh "/usr/local/bin/terraform workspace delete ws || true"
+                          }
+                          sh '/usr/local/bin/terraform init -reconfigure'
                           sh '/usr/local/bin/terraform plan -refresh=false'
                           input message: "Apply changes for ${yamlFile}?", ok: "Apply Now"
-                          sh '/usr/local/bin/terraform apply -refresh=false -auto-approve tfplan'
+                          sh '/usr/local/bin/terraform apply -auto-approve tfplan'
                         }
                     }
                 }
