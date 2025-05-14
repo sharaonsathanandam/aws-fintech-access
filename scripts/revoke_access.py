@@ -27,10 +27,3 @@ account_id = subprocess.check_output([
 data["is_access_request"] = False
 with open("pipeline-config/terraform.tfvars.json", "w") as f:
     json.dump(data, f, indent=2)
-
-with open("pipeline-config/terraform.tfvars.json", "w") as out:
-    json.dump(data, out, indent=2)
-
-print("Final tfvars file content:")
-with open("pipeline-config/terraform.tfvars.json") as f:
-    print(f.read())
