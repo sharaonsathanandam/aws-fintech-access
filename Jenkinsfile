@@ -26,9 +26,9 @@ pipeline {
                     dir('pipeline-config') {
                           sh "cat requests.json"
                           sh '/usr/local/bin/terraform init -reconfigure'
-                          sh '/usr/local/bin/terraform plan -out=tfplan'
+                          sh '/usr/local/bin/terraform plan -refresh=false -out=tfplan'
                           input message: "Apply changes for access request?", ok: "Apply Now"
-                          sh '/usr/local/bin/terraform apply -auto-approve tfplan'
+                          sh '/usr/local/bin/terraform apply -refresh=false -auto-approve tfplan'
                         }
                     }
                 }
