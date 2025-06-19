@@ -23,6 +23,7 @@ for d in yaml_dir:
     for path in sorted(glob.glob(pattern)):
         with open(path) as f:
             fragment = yaml.safe_load(f) or {}
+            print(fragment)
         requests.append(fragment)
 
 out = {"requests": requests}
