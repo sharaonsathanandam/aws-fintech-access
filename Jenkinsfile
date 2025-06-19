@@ -16,7 +16,6 @@ pipeline {
             }
         }
 
-
         stage('Apply Access Request') {
             steps{
                 script{
@@ -33,4 +32,5 @@ pipeline {
                     }
                 }
             }
-        }}
+        }
+    }

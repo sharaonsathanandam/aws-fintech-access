@@ -1,0 +1,6 @@
+user_id: treasury_ops1
+bucket_name: fintech-data-lake-3
+team_name: Financial Analyst
+environment: Dev
+data_classification : "treas_ops"
+is_access_request: true
