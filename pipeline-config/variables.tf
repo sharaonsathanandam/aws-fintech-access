@@ -3,11 +3,11 @@
 #   type        = string
 # }
 #
-# variable "force_destroy" {
-#   description = "Force delete even if objects exist"
-#   type        = bool
-#   default     = false
-# }
+variable "force_destroy" {
+  description = "Force delete even if objects exist"
+  type        = bool
+  default     = false
+}
 #
 # variable "environment" {
 #   description = "The environment name for the bucket - dev/test/uat/prod"
@@ -28,11 +28,11 @@
 #   default = ""
 # }
 #
-# variable "folder_prefixes" {
-#   description = "List of folders to create inside the bucket"
-#   type        = list(string)
-#   default     = []
-# }
+variable "folder_prefixes" {
+  description = "List of folders to create inside the bucket"
+  type        = list(string)
+  default     = []
+}
 #
 # variable "team_name" {
 #   description = "Name of the team owning this dataset"
@@ -48,18 +48,18 @@
 #   }
 # }
 #
-# variable "partition_paths" {
-#   description = "List of full partition paths to create"
-#   type        = list(string)
-#   default     = []
-# }
+variable "partition_paths" {
+  description = "List of full partition paths to create"
+  type        = list(string)
+  default     = []
+}
 #
 #
-# variable "retention_period" {
-#   description = "Data retention period in days"
-#   type        = number
-#   default     = 30
-# }
+variable "retention_period" {
+  description = "Data retention period in days"
+  type        = number
+  default     = 30
+}
 #
 # variable "principal_arn" {
 #   type = string
