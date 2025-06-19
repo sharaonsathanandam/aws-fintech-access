@@ -20,7 +20,7 @@ yaml_dir = ["finance", "treasury-ops"]
 requests = []
 for d in yaml_dir:
     pattern = os.path.join(d, "*.yaml")
-    print("pattern: ", pattern)
+    print("pattern: ", glob.glob(pattern))
     for path in sorted(glob.glob(pattern)):
         with open(path) as f:
             fragment = yaml.safe_load(f) or {}
