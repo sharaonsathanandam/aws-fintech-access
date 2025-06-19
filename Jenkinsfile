@@ -4,9 +4,9 @@ pipeline {
     agent any
 
     environment {
-    AWS_DEFAULT_REGION = 'us-east-2'
-    AWS_ACCESS_KEY_ID     = credentials('Terraform-CICD')
-    AWS_SECRET_ACCESS_KEY = credentials('Terraform-CICD')
+        AWS_DEFAULT_REGION = 'us-east-2'
+        AWS_ACCESS_KEY_ID     = credentials('Terraform-CICD')
+        AWS_SECRET_ACCESS_KEY = credentials('Terraform-CICD')
     }
 
     stages {
@@ -32,4 +32,5 @@ pipeline {
             }
         }
     }
+}
 }
