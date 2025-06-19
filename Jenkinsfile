@@ -23,11 +23,14 @@ pipeline {
                     sh "python3 scripts/parse_yaml.py"
                     def tfvarsFile = "pipeline-config/terraform.tfvars.json"
                     sh "cat ${tfvarsFile}"
-                    sh '/usr/local/bin/terraform init -reconfigure'
-                    sh '/usr/local/bin/terraform plan -out=tfplan'
-                    input message: "Apply changes for access requests?", ok: "Apply Now"
-                    sh '/usr/local/bin/terraform apply -auto-approve tfplan'
+                    dir('pipeline-config') {
+                          sh "cat terraform.tfvars.json"
+                          sh '/usr/local/bin/terraform init -reconfigure'
+                          sh '/usr/local/bin/terraform plan -out=tfplan'
+                          input message: "Apply changes for access request?", ok: "Apply Now"
+                          sh '/usr/local/bin/terraform apply -auto-approve tfplan'
+                        }
                     }
                 }
             }
-        }
+        }}
