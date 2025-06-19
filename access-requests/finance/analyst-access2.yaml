@@ -1,6 +1,6 @@
-user_id: fin_analyst1
-bucket_name: fintech-data-lake-2
-team_name: Financial Analyst
-environment: Dev
-data_classification : "fin_analysis"
-is_access_request: true
+#user_id: fin_analyst1
+#bucket_name: fintech-data-lake-2
+#team_name: Financial Analyst
+#environment: Dev
+#data_classification : "fin_analysis"
+#is_access_request: true
