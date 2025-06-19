@@ -57,6 +57,7 @@ pipeline {
         stage('Process New YAMLs') {
             steps{
                 script{
+                    sh "python3 scripts/parse_yaml.py ${yamlFile}"
                     echo "All changed files inside next stage: ${allYamls}"
                     for (yamlFile in allYamls) {
                         if (!fileExists(yamlFile)) {
