@@ -26,15 +26,15 @@ resource "aws_s3_bucket_policy" "read_only_policy" {
       {
         Effect = "Allow",
         Principal = {
-          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-reserved/sso.amazonaws.com/${var.principal_arn}"
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-reserved/sso.amazonaws.com/${each.value.principal_arn}"
         }
         Action = [
           "s3:GetObject",
           "s3:ListBucket"
         ],
         Resource = [
-          "arn:aws:s3:::${var.bucket_name}",
-          "arn:aws:s3:::${var.bucket_name}/*"
+          "arn:aws:s3:::${each.value.bucket_name}",
+          "arn:aws:s3:::${each.value.bucket_name}/*"
         ]
       }
     ]
