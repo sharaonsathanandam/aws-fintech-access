@@ -6,7 +6,6 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 requests = []
 for d in yaml_dir:
     pattern = os.path.join(f"{d}/*.yaml")
-    print("pattern: ", pattern)
     for path in sorted(glob.glob(pattern)):
         with open(path) as f:
             fragment = yaml.safe_load(f) or {}
