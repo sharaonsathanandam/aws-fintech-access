@@ -1,6 +1,6 @@
 locals {
   raw_requests = jsondecode(
-    file("${path.module}/pipeline-config/requests.json")
+    file("requests.json")
   )
   # Turn it into a map so we can for_each by bucket_name or index
   requests = {
