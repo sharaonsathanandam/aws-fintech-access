@@ -75,3 +75,16 @@ variable "user_id" {
   type = string
   default = ""
 }
+
+variable "requests" {
+  description = "List of access-request objects"
+  type = list(object({
+    user_id             = string
+    bucket_name         = string
+    team_name           = string
+    environment         = string
+    principal_arn       = string
+    data_classification = string
+    is_access_request   = bool
+  }))
+}
