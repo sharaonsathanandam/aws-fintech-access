@@ -1,6 +1,5 @@
 import yaml, json, sys, os, subprocess, glob
 
-input_file = sys.argv[1]
 yaml_dir = ["finance", "treasury-ops"]
 
 # with open(input_file) as f:

@@ -57,28 +57,28 @@ pipeline {
         stage('Process New YAMLs') {
             steps{
                 script{
-                    sh "python3 scripts/parse_yaml.py ${yamlFile}"
                     echo "All changed files inside next stage: ${allYamls}"
-                    for (yamlFile in allYamls) {
-                        if (!fileExists(yamlFile)) {
-                            echo "Skipping ${yamlFile} — it was deleted in this commit."
-                            continue
-                          }
-                        def commitHash = sh(script: "git log -n 1 --pretty=format:%H -- ${yamlFile}", returnStdout: true).trim()
-                        echo "Processing ${yamlFile} (commit ${commitHash})"
-                        sh "python3 -m pip install -r scripts/requirements.txt"
-                        sh "python3 scripts/parse_yaml.py ${yamlFile}"
-
-                        def tfvarsFile = "pipeline-config/terraform.tfvars.json"
-//                         sh "jq '. + {git_commit_hash: \"${commitHash}\"}' ${tfvarsFile} > tmp && mv tmp ${tfvarsFile}"
-                        sh "cat ${tfvarsFile}"
-                        dir('pipeline-config') {
-                          sh '/usr/local/bin/terraform init -reconfigure'
-                          sh '/usr/local/bin/terraform plan -refresh=false -out=tfplan'
-                          input message: "Apply changes for ${yamlFile}?", ok: "Apply Now"
-                          sh '/usr/local/bin/terraform apply -auto-approve tfplan'
-                        }
-                    }
+                    sh "python3 scripts/parse_yaml.py"
+//                     for (yamlFile in allYamls) {
+//                         if (!fileExists(yamlFile)) {
+//                             echo "Skipping ${yamlFile} — it was deleted in this commit."
+//                             continue
+//                           }
+//                         def commitHash = sh(script: "git log -n 1 --pretty=format:%H -- ${yamlFile}", returnStdout: true).trim()
+//                         echo "Processing ${yamlFile} (commit ${commitHash})"
+//                         sh "python3 -m pip install -r scripts/requirements.txt"
+//                         sh "python3 scripts/parse_yaml.py ${yamlFile}"
+//
+//                         def tfvarsFile = "pipeline-config/terraform.tfvars.json"
+// //                         sh "jq '. + {git_commit_hash: \"${commitHash}\"}' ${tfvarsFile} > tmp && mv tmp ${tfvarsFile}"
+//                         sh "cat ${tfvarsFile}"
+//                         dir('pipeline-config') {
+//                           sh '/usr/local/bin/terraform init -reconfigure'
+//                           sh '/usr/local/bin/terraform plan -refresh=false -out=tfplan'
+//                           input message: "Apply changes for ${yamlFile}?", ok: "Apply Now"
+//                           sh '/usr/local/bin/terraform apply -auto-approve tfplan'
+//                         }
+//                     }
                 }
             }
         }
