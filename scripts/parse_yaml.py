@@ -4,7 +4,7 @@ yaml_dir = ["access-requests/finance", "access-requests/treasury-ops"]
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 account_id = subprocess.check_output([
-    "aws","sts","get-caller-identity",
+    "/usr/local/bin/aws","sts","get-caller-identity",
     "--query","Account","--output","text"
 ]).decode().strip()
 base_arn = f"arn:aws:iam::{account_id}:role/AWSReservedSSO_FinanceAnalysts_b67570c300321d27"
