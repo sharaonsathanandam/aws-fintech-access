@@ -59,6 +59,7 @@ pipeline {
                 script{
                     echo "All changed files inside next stage: ${allYamls}"
                     sh "python3 scripts/parse_yaml.py"
+                    sh "cat ${tfvarsFile}"
 //                     for (yamlFile in allYamls) {
 //                         if (!fileExists(yamlFile)) {
 //                             echo "Skipping ${yamlFile} — it was deleted in this commit."
