@@ -9,6 +9,10 @@ for d in yaml_dir:
     for path in sorted(glob.glob(pattern)):
         key = os.path.splitext(os.path.basename(path))[0]
         data = yaml.safe_load(open(path)) or {}
+        if d == "access-requests/finance":
+            data['principal_arn'] = "AWSReservedSSO_FinanceAnalysts_b67570c300321d27"
+        elif d == "access-requests/treasury-ops":
+            data['principal_arn'] = "AWSReservedSSO_TreasuryOps_c96dc0d2a167af60"
         requests_map.append(data)
 
 out_path = "pipeline-config/requests.json"
