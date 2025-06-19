@@ -21,10 +21,10 @@ pipeline {
             steps{
                 script{
                     sh "python3 scripts/parse_yaml.py"
-                    def tfvarsFile = "pipeline-config/terraform.tfvars.json"
+                    def tfvarsFile = "pipeline-config/requests.json"
                     sh "cat ${tfvarsFile}"
                     dir('pipeline-config') {
-                          sh "cat terraform.tfvars.json"
+                          sh "cat requests.json"
                           sh '/usr/local/bin/terraform init -reconfigure'
                           sh '/usr/local/bin/terraform plan -out=tfplan'
                           input message: "Apply changes for access request?", ok: "Apply Now"
